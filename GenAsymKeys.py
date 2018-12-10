@@ -16,8 +16,8 @@ class GenAsymKeys:
 
         file_path = path
 
-        random_generator = Random.new().read
-        key = RSA.generate(1024, random_generator) #generate pub and priv key
+        #random_generator = Random.new().read
+        key = RSA.generate(1024) #generate pub and priv key
 
         #checking to see if the path doesn't already exist. otherwise make it
         if not os.path.exists(file_path):
@@ -49,4 +49,7 @@ class GenAsymKeys:
         f.write(private_key_str) #write ciphertext to file
         f.close()
 
+        rw_path = file_path + '/RWPackage'
+
         print("\n\nKEYS SUCCESSFULLY GENERATED FOR " + name + "\n")
+        print(rw_path + "\n")

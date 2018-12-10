@@ -1,0 +1,4 @@
+#!/bin/bash
+pyinstaller --onefile R-Decryption.py
+pyinstaller --onefile Ransomware.py
+echo Executables successfully created!

