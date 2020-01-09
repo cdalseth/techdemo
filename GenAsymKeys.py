@@ -35,8 +35,8 @@ class GenAsymKeys:
 
         public_key = key.publickey()
 
-        private_key_str = key.exportKey("PEM")
-        public_key_str = key.publickey().exportKey("PEM")
+        private_key_str = key.exportKey("PEM").decode('utf-8')
+        public_key_str = key.publickey().exportKey("PEM").decode('utf-8')
 
         print("\n\n" + private_key_str)
         print("\n" + public_key_str)
