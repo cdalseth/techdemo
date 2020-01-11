@@ -10,13 +10,13 @@ For this demo to work, you need the *pycrypto, Tkinter* and *psutil* libraries i
 ```console
 user@host:~/techdemo$ sh GetLibs.sh
 ```
-You can then run GenR-ware.py from inside *techdemo*:
+You can then run **GenR-ware.py** from inside *techdemo*:
 ```console
 user@host:~/techdemo$ python GenR-ware.py
 ```
 It will prompt you to enter a name of a fictional target the ransomware will be sent to (if you already have a target by that name, it will ask if you're sure you want to regenerate the keys).
 
-There should now be a *Targets* directory in *techdemo*. If you change into that directory, a folder for your target has been created. All future targets will appear in this directory as well. Navigating into one of those directories will provide you with the RSA private key and RSA public key in .txt files. Going into the *RWPackage* folder will provide you with the ransomware and decryption programs named *R-ware.py* and *R-Decryption.py*, respectively. Before running these, I suggest populating the folders inside the home directory with some sub-directories and files so you can see what happens. 
+There should now be a *Targets* directory in *techdemo*. If you change into that directory, a folder for your target has been created. All future targets will appear in this directory as well. Navigating into one of those directories will provide you with the RSA private key and RSA public key in .txt files. Going into the *RWPackage* folder will provide you with the ransomware and decryption programs named **R-ware.py** and **R-Decryption.py**, respectively. Before running these, I suggest populating the folders inside the home directory with some sub-directories and files so you can see what happens. 
 
 __NOTE: If you have *techdemo* in your Home directory, it will not be an issue as long as you don't change the name of the folder. The ransomware will intentionally pass over it.__ 
 
