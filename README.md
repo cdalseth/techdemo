@@ -6,7 +6,7 @@ Start by cloning the repository:
 ```console
 user@host:~$ git clone https://github.com/cdalseth/techdemo.git
 ```
-For this demo to work, you need the *urllib2, pycrypto, Tkinter* and *psutil* libraries. To install them, you can just run *GetLibs.sh*:
+For this demo to work, you need the *pycrypto, Tkinter* and *psutil* libraries installed. To install them, you can just run *GetLibs.sh*:
 ```console
 user@host:~/techdemo$ sh GetLibs.sh
 ```
