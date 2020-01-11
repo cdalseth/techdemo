@@ -42,7 +42,7 @@ def traverse_files(nwd, key, depth):
     for path in files:
         if os.path.isdir(path):
             #print((depth*'- ') + "D: " + os.path.basename(os.path.normpath(path)))
-            if not os.path.basename(os.path.normpath(path)) == info_dir: 
+            if not os.path.basename(os.path.normpath(path)) == info_dir and not os.path.basename(os.path.normpath(path)) == 'techdemo': 
                 traverse_files(path, key, depth + 1)
         
         else:

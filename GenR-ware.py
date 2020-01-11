@@ -74,7 +74,7 @@ f = open(rw_dir_e, "r")
 contents = f.readlines()
 f.close()
 
-contents.insert(116, "    public_key = \"\"\"" +  '    '.join(pub_key.splitlines(True)) + "\"\"\"\n\n")
+contents.insert(117, "    public_key = \"\"\"" +  '    '.join(pub_key.splitlines(True)) + "\"\"\"\n\n")
 
 f = open(rw_dir_e, "w")
 contents = "".join(contents)
