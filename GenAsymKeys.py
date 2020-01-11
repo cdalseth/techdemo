@@ -7,10 +7,14 @@ from os.path import expanduser
 import sys
 import glob
 
+## FOR DEMONSTRATION PURPOSES ONLY##
+## FOR DEMONSTRATION PURPOSES ONLY##
+## FOR DEMONSTRATION PURPOSES ONLY##
+## FOR DEMONSTRATION PURPOSES ONLY##
+
 #adapted from answers at
 #https://stackoverflow.com/questions/30056762/rsa-encryption-and-decryption-in-python
 #https://stackoverflow.com/questions/47522009/make-directory-in-python
-
 class GenAsymKeys:
     def __init__(self, path, name):
 
@@ -51,3 +55,8 @@ class GenAsymKeys:
 
         print("\n\nKeys successfully generated for \'" + name + "\', and can be found in: \n")
         print("\t" + file_path + "\n")
+
+## FOR DEMONSTRATION PURPOSES ONLY##
+## FOR DEMONSTRATION PURPOSES ONLY##
+## FOR DEMONSTRATION PURPOSES ONLY##
+## FOR DEMONSTRATION PURPOSES ONLY##

