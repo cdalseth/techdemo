@@ -5,6 +5,8 @@
 
 #### WARNING: THIS SOFTWARE IS MEANT FOR EDUCATIONAL AND DEMONSTRATION PURPOSES ONLY. ONLY RUN THIS SOFTWARE ON A VIRTUAL MACHINE THAT DOES NOT CONTAIN ANY SENSITIVE OR MEANINGFUL DATA. *USE AT YOUR OWN RISK.*
 
+**The purpose of creating this program was to help further my own understanding of how ransomware works, at least conceptually. I hope others find this useful and educational as well. I suggest looking over the code to get an understanding of what is actually happening when you run these scripts. There are definetly a few artifacts left over from previous iterations, and it could use some refactoring, but dead code should be limited and the program should be relatively easy to understand. Everything starts in GenR-ware.py.** 
+
 Start by cloning the repository:
 ```console
 user@host:~$ git clone https://github.com/cdalseth/techdemo.git
@@ -27,7 +29,7 @@ You can now run the ransomware:
 ```console
 user@host:~/techdemo/Targets/<-TARGET1->/RWPackage$ python R-ware.py
 ```
-You'll be greeted with a ransom note that you cannot close and a browser window at Coinbase. When you try to close the window it will just open a new tab for Coinbase. All of your files in your Home directory and it's subdirectories have now been encrypted using AES encryption. You'll also see a folder on the desktop named *RANSOM_INFO* which contains your encrypted AES key and a copy of the ransom note. To decrypt all of your files you can either open a new bash window, or you can kill the ransomware process in the current window by using *CTRL+c* and moving the window. 
+You'll be greeted with a ransom note that you cannot close and a browser window at Coinbase's website. When you try to close the window it will just open a new tab for Coinbase. All of your files in your Home directory and it's subdirectories have now been encrypted using AES encryption. You'll also see a folder on the desktop named *RANSOM_INFO* which contains your encrypted AES key and a copy of the ransom note. To decrypt all of your files you can either open a new bash window, or you can kill the ransomware process in the current window by using *CTRL+c* and moving the window. 
 
 To decrypt everything, run:
 ```console
