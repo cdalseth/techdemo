@@ -5,7 +5,7 @@
 
 #### WARNING: THIS SOFTWARE IS MEANT FOR EDUCATIONAL AND DEMONSTRATION PURPOSES ONLY. ONLY RUN THIS SOFTWARE ON A VIRTUAL MACHINE THAT DOES NOT CONTAIN ANY SENSITIVE OR MEANINGFUL DATA. *USE AT YOUR OWN RISK.*
 
-**The purpose of creating this program was to help further my own understanding of how ransomware works, at least conceptually. I hope others find this useful and educational as well. I suggest looking over the code to get an understanding of what is actually happening when you run these scripts. There are definetly a few artifacts left over from previous iterations, and it could use some refactoring, but dead code should be limited and the program should be relatively easy to understand. Everything starts in GenR-ware.py.** 
+**The purpose of creating this program was to help further my own understanding of how ransomware works, at least conceptually. I hope others find this useful and educational as well. I suggest looking over the code to get an understanding of what is actually happening when you run these scripts. I created this in about a days worth of work, so there are definetly a few artifacts left over from previous iterations, and it could use some refactoring. Everything starts in GenR-ware.py.** 
 
 Start by cloning the repository:
 ```console
