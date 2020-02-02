@@ -21,7 +21,7 @@ user@host:~/techdemo$ python GenR-ware.py
 ```
 It will prompt you to enter a name of a fictional target the ransomware will be sent to (if you already have a target by that name, it will ask if you're sure you want to regenerate the keys).
 
-There should now be a *Targets* directory in *techdemo*. If you change into that directory, a folder for your target has been created. All future targets will appear in this directory as well. Navigating into one of those directories will provide you with the RSA private key and RSA public key in .txt files. Going into the *RWPackage* folder will provide you with the ransomware and decryption programs named **R-ware.py** and **R-Decryption.py**, respectively. Before running these, I suggest populating the folders inside the Home directory with some sub-directories and files so you can see what happens. 
+There should now be a *Targets* directory in *techdemo*. If you change into that directory, a folder for your target has been created. All future targets will appear in this directory as well. Navigating into one of these name directories will provide you with the RSA private key and RSA public key in .txt files. Going into the *RWPackage* folder will provide you with the ransomware and decryption programs named **R-ware.py** and **R-Decryption.py**, respectively. Before running these, I suggest populating the folders inside the Home directory with some sub-directories and files so you can see what happens. 
 
 __NOTE: If you have *techdemo* in your Home directory, it will not be an issue as long as you don't change the name of the folder. The ransomware will intentionally pass over it.__ 
 
@@ -29,7 +29,7 @@ You can now run the ransomware:
 ```console
 user@host:~/techdemo/Targets/<-TARGET1->/RWPackage$ python R-ware.py
 ```
-You'll be greeted with a ransom note that you cannot close and a browser window at Coinbase's website. When you try to close the window it will just open a new tab for Coinbase. All of your files in your Home directory and it's subdirectories have now been encrypted using AES encryption. You'll also see a folder on the desktop named *RANSOM_INFO* which contains your encrypted AES key and a copy of the ransom note. To decrypt all of your files you can either open a new bash window, or you can kill the ransomware process in the current window by using *CTRL+c* and moving the window. 
+You'll be greeted with a ransom note that you will not be able to close and a browser window at Coinbase's website. When you try to close the window it will just open a new tab for Coinbase. All of your files in your Home directory and it's subdirectories have now been encrypted using AES encryption. You'll also see a folder on the desktop named *RANSOM_INFO* which contains your encrypted AES key and a copy of the ransom note. To decrypt all of your files you can either open a new bash window, or you can kill the ransomware process in the current window by using *CTRL+c* and moving the window. 
 
 To decrypt everything, run:
 ```console
